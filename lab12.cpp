@@ -35,7 +35,10 @@ int main() {
 
 
 
-    array<int, DAYS> zeros;
+    array<int, DAYS> sorted = visits;
+
+    //i din;t know why  i got error from here,,
+    //'sorted' was not declared in this scope; did you mean 'strtod'?
     sort(sorted.begin(), sorted.end());
     printData(sorted, "\nSorted data:");
 
@@ -59,9 +62,20 @@ bool loadData(const string& filename, array<int, DAYS>& visits) {
     if (!fin.good())
         return false;
 
-    for (int i = 0; i < DAYS; i++)
+    for (int i = 0; i < DAYS; i++){
         fin >> visits[i];
+        if (fin.fail()) {
+            fin.close();
+            return false;
+        }
+    }
 
     fin.close();
     return true;
+}
+void printData(const array<int, DAYS>& visits, const string& title) {
+    cout << title << "\n";
+    for (int i = 0; i < DAYS; i++) {
+        cout << "Day " << i + 1 << ": " << visits[i] << "\n";
+    }
 }
